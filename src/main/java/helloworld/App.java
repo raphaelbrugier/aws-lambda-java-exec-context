@@ -33,7 +33,7 @@ public class App implements RequestHandler<Object, Object> {
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
         String instanceHashcode = Integer.toHexString(System.identityHashCode(this));
-        String output = String.format("{ \"static random\": \"%f\", \"randomFromConstructor\": \"%f\", \"randomFromHandler\": \"%f\", \"instanceId\":\"%s\" }",
+        String output = String.format("{ \"static random\": \"%f\", \"randomFromConstructor\": \"%f\", \"randomFromHandler\": \"%f\", \"instanceHashcode\":\"%s\" }",
                 staticRandom, randomFromConstructor, randomFromHandler, instanceHashcode);
         return new GatewayResponse(output, headers, 200);
     }

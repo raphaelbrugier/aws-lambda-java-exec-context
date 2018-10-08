@@ -1,10 +1,10 @@
 # Java Lambda - context evaluation
 
 This Lambda code shows how AWS reuses the same environment context between several Java Lambda executions[^1].
-Especially, this demonstrates how the function handler is called from a Singleton instance.
+Especially, this demonstrates how the function handler is invoked from the same Singleton instance every time - until AWS reclaims the Lambda.
  
 
-My definition of a '_Lambda environment context_' is the following:
+My definition of a '_Lambda execution context_' is the following:
 
 - the container running the Lambda
 - the JVM running the Lambda
@@ -80,6 +80,7 @@ Navigate to the url a few times.
 You will notice that not all the random number change after each invocation:
 - The static number is evaluated only once for this Lambda instance
 - The number initialized in the constructor is _also_ evaluated only _once_
+- The hashcode of the Singleton instance stays the same
 - The number generated in the handler is generated every time.
 
 This is because AWS reuses the environment context to run the same instance of a Lambda (_most of the time_). The class holding the handler function is a Singleton and its instance is reused between invocation.
@@ -89,4 +90,5 @@ If this Lambda api was called multiple times and _in parallel_ you would noticed
 
 
 
-[^1]: AWS does not provide any guarantee to reuse the same execution context between invocations, but it is generally the case. If the invocation
+[^1]: AWS does not provide any guarantee to reuse the same execution context between invocations, but it is generally admitted than any sequential invocation of the Lambda will reuse the same context.
+That until the function is not invoked anymore and AWS reclaims the context.    
