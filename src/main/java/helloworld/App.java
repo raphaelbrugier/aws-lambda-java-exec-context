@@ -11,9 +11,10 @@ import java.util.Map;
  */
 public class App implements RequestHandler<Object, Object> {
 
-    static double staticRandom = Math.random();
+    static double staticRandom;
 
     static {
+        staticRandom = Math.random();
         System.out.println("Evaluating static bloc. static random = " + staticRandom);
     }
 
@@ -31,7 +32,9 @@ public class App implements RequestHandler<Object, Object> {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
-        String output = String.format("{ \"static random\": \"%f\", \"randomFromConstructor\": \"%f\", \"randomFromHandler\": \"%f\" }", staticRandom, randomFromConstructor, randomFromHandler);
+        String instanceHashcode = Integer.toHexString(System.identityHashCode(this));
+        String output = String.format("{ \"static random\": \"%f\", \"randomFromConstructor\": \"%f\", \"randomFromHandler\": \"%f\", \"instanceId\":\"%s\" }",
+                staticRandom, randomFromConstructor, randomFromHandler, instanceHashcode);
         return new GatewayResponse(output, headers, 200);
     }
 }
