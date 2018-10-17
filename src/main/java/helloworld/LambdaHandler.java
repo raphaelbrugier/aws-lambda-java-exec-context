@@ -11,16 +11,16 @@ import java.util.Map;
  */
 public class LambdaHandler implements RequestHandler<Object, Object> {
 
-    static double staticRandom;
+    static double STATIC_RANDOM;
 
     static {
-        staticRandom = Math.random(); // (1) Value generated in the static block
+        STATIC_RANDOM = Math.random(); // (1) Value generated in the static block
     }
 
     private final double constructorRandom;
 
     public LambdaHandler() {
-        constructorRandom = Math.random(); // (2) Value generated in the LambdaHandler constructor
+        this.constructorRandom = Math.random(); // (2) Value generated in the LambdaHandler constructor
     }
 
     public Object handleRequest(final Object input, final Context context) {
@@ -28,7 +28,7 @@ public class LambdaHandler implements RequestHandler<Object, Object> {
 
         String output = String.format(
                 "{ \"1 - static value\": \"%f\", \" 2 - constructor value\": \"%f\", \"3 - invocation value\": \"%f\"}",
-                staticRandom, constructorRandom, invocationRandom);
+                STATIC_RANDOM, this.constructorRandom, invocationRandom);
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
