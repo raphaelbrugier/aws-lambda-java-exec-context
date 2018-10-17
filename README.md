@@ -62,7 +62,7 @@ Next, the following command will create a Cloudformation Stack and deploy your S
 ```bash
 sam deploy \
     --template-file packaged.yaml \
-    --stack-name lambda-app \
+    --stack-name lambda-handler \
     --capabilities CAPABILITY_IAM
 ```
 
@@ -70,7 +70,7 @@ After deployment is complete you can run the following command to retrieve the A
 
 ```bash
 aws cloudformation describe-stacks \
-    --stack-name lambda-app \
+    --stack-name lambda-handler \
     --query 'Stacks[].Outputs[1].OutputValue'
 ```
 
