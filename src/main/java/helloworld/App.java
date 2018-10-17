@@ -15,26 +15,24 @@ public class App implements RequestHandler<Object, Object> {
 
     static {
         staticRandom = Math.random();
-        System.out.println("Evaluating static bloc. static random = " + staticRandom);
     }
 
-    private final double randomFromConstructor;
+    private final double constructorRandom;
 
     public App() {
-        randomFromConstructor = Math.random();
-        System.out.println("Evaluating constructor. static random = " + staticRandom + "     randomFromConstructor = " + this.randomFromConstructor);
+        constructorRandom = Math.random();
     }
 
     public Object handleRequest(final Object input, final Context context) {
-        double randomFromHandler = Math.random();
-        System.out.println("Evaluating handler. static random=" + staticRandom + "     randomFromConstructor=" + this.randomFromConstructor + "     randomFromHandler=" + randomFromHandler);
+        double invocationRandom = Math.random();
+
+        String output = String.format(
+                "{ \"static random\": \"%f\", \"constructorRandom\": \"%f\", \"invocationRandom\": \"%f\"}",
+                staticRandom, constructorRandom, invocationRandom);
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
-        String instanceHashcode = Integer.toHexString(System.identityHashCode(this));
-        String output = String.format("{ \"static random\": \"%f\", \"randomFromConstructor\": \"%f\", \"randomFromHandler\": \"%f\", \"instanceHashcode\":\"%s\" }",
-                staticRandom, randomFromConstructor, randomFromHandler, instanceHashcode);
         return new GatewayResponse(output, headers, 200);
     }
 }
