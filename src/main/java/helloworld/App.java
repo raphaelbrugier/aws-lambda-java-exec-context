@@ -27,7 +27,7 @@ public class App implements RequestHandler<Object, Object> {
         double invocationRandom = Math.random(); // (3) Value generated in the Handler method for each invocation
 
         String output = String.format(
-                "{ \"static random\": \"%f\", \"constructorRandom\": \"%f\", \"invocationRandom\": \"%f\"}",
+                "{ \"static value\": \"%f\", \"constructor value\": \"%f\", \"invocation value\": \"%f\"}",
                 staticRandom, constructorRandom, invocationRandom);
 
         Map<String, String> headers = new HashMap<>();

@@ -26,14 +26,14 @@ Resources:
                 HelloWorld:
                     Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
                     Properties:
-                        Path: /hello
+                        Path: /execute
                         Method: get
 
 Outputs:
 
     HelloWorldApi:
       Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/execute/"
 
     HelloWorldFunction:
       Description: "Hello World Lambda Function ARN"

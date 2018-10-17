@@ -80,7 +80,6 @@ Navigate to the url a few times.
 You will notice that not all the random number change after each invocation:
 - The static number is evaluated only once for this Lambda instance
 - The number initialized in the constructor is _also_ evaluated only _once_
-- The hashcode of the Singleton instance stays the same
 - The number generated in the handler is generated every time.
 
 This is because AWS reuses the environment context to run the same instance of a Lambda (_most of the time_). The class holding the handler function is a Singleton and its instance is reused between invocation.
